@@ -1,0 +1,12 @@
+box: jkawamoto/ghp-box
+build:
+  steps:
+    - jkawamoto/sphinx:
+        target: html
+        packages: sphinx_rtd_theme sphinxcontrib-blockdiag
+deploy:
+  steps:
+    - heroku-deploy:
+        key: $HEROKU_KEY
+        user: $HEROKU_USER
+        app-name: $HEROKU_APP_NAME
