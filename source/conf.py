@@ -246,7 +246,7 @@ texinfo_documents = [
 # for Blockdiag
 blockdiag_fontpath = [
   'C:\WINDOWS\Fonts\MEIRYO.TTC',
-  '/etc/alternatives/fonts-japanese-gothic.ttf'
+  '/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf'
 ]
 blockdiag_antialias = True
 

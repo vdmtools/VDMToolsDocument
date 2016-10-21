@@ -7,7 +7,7 @@ before_install:
     - sudo apt-get install -y otf-ipafont-gothic
 
 install:
-    - pip install sphinx travis-sphinx sphinx_rtd_theme sphinxcontrib-blockdiag
+    - pip install sphinx travis-sphinx sphinx_rtd_theme sphinxcontrib-blockdiag pygments_plugin_vdm_lexer
 
 script:
     - travis-sphinx --source=source build
