@@ -2,6 +2,9 @@ language: python
 python:
     - "3.5"
 
+before_install:
+    - sudo apt-get install fonts-japanese-gothic
+
 install:
     - pip install sphinx travis-sphinx sphinx_rtd_theme sphinxcontrib-blockdiag
 
