@@ -3,7 +3,7 @@ python:
     - "3.5"
 
 install:
-    - pip install --user sphinx travis-sphinx sphinx_rtd_theme sphinxcontrib-blockdiag
+    - pip install sphinx travis-sphinx sphinx_rtd_theme sphinxcontrib-blockdiag
 
 script:
     - travis-sphinx --source=./ build
