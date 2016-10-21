@@ -3,8 +3,8 @@ python:
     - "3.5"
 
 before_install:
-    - sudo apt-get update
-    - sudo apt-get install fonts-japanese-gothic
+    - sudo apt-get -qq update
+    - sudo apt-get install -y otf-ipafont-gothic
 
 install:
     - pip install sphinx travis-sphinx sphinx_rtd_theme sphinxcontrib-blockdiag
