@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>VDMTools全体像 &mdash; VDMTools Documents 1.0.0 ドキュメント</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="VDMTools Documents 1.0.0 ドキュメント" href="index.html"/>
+        <link rel="next" title="VDMToolsの開発方法" href="VDMToolsDev.html"/>
+        <link rel="prev" title="VDMTools開発ドキュメント" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> VDMTools Documents
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VDMTools全体像</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">動作環境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">ソースディレクトリ構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">VDMTools の動作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">構文解析／チェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">型チェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">インタープリタ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">清書機能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#c-java">C++/javaコード生成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">証明課題生成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uml">UMLリンク</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">ライブラリ構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">関連ソフトウエア</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="VDMToolsDev.html">VDMToolsの開発方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="powertest.html">Powertest実行方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addPowertestCase.html">Powertest テストケース追加方法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">VDMTools Documents</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>VDMTools全体像</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/aboutVDMTools.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vdmtools">
+<h1>VDMTools全体像<a class="headerlink" href="#vdmtools" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id1">
+<h2>動作環境<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li>Mac OS X</li>
+<li>Linux</li>
+<li>Windows XP/Vista/7</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>機能<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li>構文解析／チェック</li>
+<li>型チェック</li>
+<li>インタープリタ</li>
+<li>C++/Javaコード生成</li>
+<li>証明課題生成</li>
+<li>清書</li>
+<li>UMLリンク</li>
+<li>JavaからVDM++への変換(現在未サポート)</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>ソースディレクトリ構成<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>VDMTools のソースディレクトリ構成を示す。
+使用していないもの、基本機能に関連しないものは省略する。</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>.-+-code-+-api              ... CORBAインターフェース実装、サンプル
+  |      +-build            ... ツールをビルドするためのファイル
+  |      +-cg               ... C++/javaコード生成実装
+  |      +-dep
+  |      +-diverse          ... コマンドラインメインプログラム等
+  |      +-errmsg           ... 型チェックエラーメッセージ
+  |      +-eval             ... インタープリタ実装、清書機能実装
+  |      +-java             ... javaランタイムライブラリ
+  |      +-java2vdm++       ... JavaVDM++変換手実装部分
+  |      +-lib              ... メタデータ実装等
+  |      +-make_tools       ... perl ツール類
+  |      +-parser           ... 構文解析実装
+  |      +-pog              ... 証明課題生成手実装部分
+  |      +-pog-aux          ... 証明課題生成手実装部分
+  |      +-pog-pretty       ... 証明課題生成手実装部分
+  |      +-port             ... OS間差異吸収
+  |      +-qtgui            ... GUI版GUI実装部分
+  |      +-random           ... 乱数実装
+  |      +-recover          ... 構文解析実
+  |      +-servicemanager   ... CORBA経由サービス実装(機能未使用)
+  |      +-specfile         ... 仕様ファイル操作
+  |      +-specman          ... 仕様ファイル管理手実装部分
+  |      +-statsem          ... 型チェック実装
+  |      +-traces           ... 組み合わせテスト実装
+  |      +-transforms       ... JavaVDM++変換手実装部分
+  |      +-uml              ... UMLリンク手実装部分
+  |      +-utils            ... 各種ユーティリティ
+  |      +-vice             ... vice手実装部
+  |      +-win32            ... Windows用各種ファイル
+  |      +-word             ... MS Word 用ファイル
+  |
+  +-spec-+-ast              ... 抽象構文木等基本データ構造定義、コード生成対象
+  |      +-cg-spec          ... C++/javaコード生成仕様、コード抽象構文木定義等一部コード生成対象
+  |      +-dep-spec
+  |      +-eval-spec        ... インタープリタ仕様、動的意味定義等一部コード生成対象
+  |      +-j2vtf-spec       ... JavaVDM++変換仕様
+  |      +-java2vdm         ... JavaVDM++変換仕様、一部コード生成対象
+  |      +-jss-spec         ... JavaVDM++変換仕様、一部コード生成対象
+  |      +-pog-aux-spec     ... 証明課題生成仕様、コード生成対象
+  |      +-pog-pretty-spec  ... 証明課題生成仕様、コード生成対象
+  |      +-pog-spec         ... 証明課題生成仕様、コード生成対象
+  |      +-specman-spec     ... 仕様ファイル管理、ツール機能のインターフェース定義
+  |      +-ss-spec          ... 型チェック仕様
+  |      +-stdlib-spec      ... 標準ライブラリ仕様、コード生成用ファイル
+  |      +-traces-spec      ... 組み合わせテスト仕様
+  |      +-transform-spec   ... JavaVDM++変換仕様、一部コード生成対象
+  |      +-uml-spec         ... UMLリンク仕様、コード生成対象
+  |
+  +-doc----latex            ... 清書機能に用いるスタイル
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>VDMTools の動作<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h3>構文解析／チェック<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div><a class="reference internal image-reference" href="_images/blockdiag-9cd8a687d16c1cf1093a017c91f6846929f09faf.png"><img height="250.0" src="_images/blockdiag-9cd8a687d16c1cf1093a017c91f6846929f09faf.png" width="800.0" /></a></div></div>
+<div class="section" id="id6">
+<h3>型チェック<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div><a class="reference internal image-reference" href="_images/blockdiag-f4cb483293157058f41ccede8ee59910185e0f1a.png"><img height="350.0" src="_images/blockdiag-f4cb483293157058f41ccede8ee59910185e0f1a.png" width="800.0" /></a></div></div>
+<div class="section" id="id7">
+<h3>インタープリタ<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div><a class="reference internal image-reference" href="_images/blockdiag-aa6f3382576976a1347946326d5d059c34110c66.png"><img height="218.75" src="_images/blockdiag-aa6f3382576976a1347946326d5d059c34110c66.png" width="800.0" /></a></div></div>
+<div class="section" id="id8">
+<h3>清書機能<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div><a class="reference internal image-reference" href="_images/blockdiag-d1ce64b08a6a2d936627faf2d74a7a529711d59c.png"><img height="250.0" src="_images/blockdiag-d1ce64b08a6a2d936627faf2d74a7a529711d59c.png" width="800.0" /></a></div></div>
+<div class="section" id="c-java">
+<h3>C++/javaコード生成<a class="headerlink" href="#c-java" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div><a class="reference internal image-reference" href="_images/blockdiag-6b9a9f177e1b55ae21a9db794b627f8388027059.png"><img height="156.25" src="_images/blockdiag-6b9a9f177e1b55ae21a9db794b627f8388027059.png" width="800.0" /></a></div></div>
+<div class="section" id="id9">
+<h3>証明課題生成<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div><a class="reference internal image-reference" href="_images/blockdiag-2fe26b07254d5a9d02b836b25b0a90fa5d454b86.png"><img height="250.0" src="_images/blockdiag-2fe26b07254d5a9d02b836b25b0a90fa5d454b86.png" width="800.0" /></a></div></div>
+<div class="section" id="uml">
+<h3>UMLリンク<a class="headerlink" href="#uml" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div><a class="reference internal image-reference" href="_images/blockdiag-a1eeb55a19fd86a439dfcdd80d0c8e93a13be175.png"><img height="423.0769230769231" src="_images/blockdiag-a1eeb55a19fd86a439dfcdd80d0c8e93a13be175.png" width="800.0" /></a></div></div>
+</div>
+<div class="section" id="id10">
+<h2>ライブラリ構成<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ライブラリ名</th>
+<th class="head">役割</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>libCG-xx.a</td>
+<td>C++/javaコード生成</td>
+</tr>
+<tr class="row-odd"><td>libCG.a</td>
+<td>C++生成コード用ランタイムライブラリ</td>
+</tr>
+<tr class="row-even"><td>libMGR-xx.a</td>
+<td>仕様ファイル管理</td>
+</tr>
+<tr class="row-odd"><td>libPOG-xx.a</td>
+<td>証明課題生成</td>
+</tr>
+<tr class="row-even"><td>libPOG_AUX-xx.a</td>
+<td>証明課題生成</td>
+</tr>
+<tr class="row-odd"><td>libPOG_PRETTY-xx.a</td>
+<td>証明課題生成</td>
+</tr>
+<tr class="row-even"><td>libUML-xx.a</td>
+<td>UMLリンク</td>
+</tr>
+<tr class="row-odd"><td>libcorba-xx.a</td>
+<td>CORBAインターフェース</td>
+</tr>
+<tr class="row-even"><td>libeval-xx.a</td>
+<td>インタープリタ／清書</td>
+</tr>
+<tr class="row-odd"><td>libgen-xx.a</td>
+<td>仕様からのコード生成部分</td>
+</tr>
+<tr class="row-even"><td>libj2v-xx.a</td>
+<td>javaVDM変換</td>
+</tr>
+<tr class="row-odd"><td>libjss-xx.a</td>
+<td>javaVDM変換</td>
+</tr>
+<tr class="row-even"><td>libparser-xx.a</td>
+<td>構文解析</td>
+</tr>
+<tr class="row-odd"><td>libqtgui-xx.a</td>
+<td>GUI</td>
+</tr>
+<tr class="row-even"><td>libservman-xx.a</td>
+<td>CORBAサービス(機能未使用)</td>
+</tr>
+<tr class="row-odd"><td>libspecfile-xx.a</td>
+<td>仕様文書管理</td>
+</tr>
+<tr class="row-even"><td>libss-xx.a</td>
+<td>型チェック</td>
+</tr>
+<tr class="row-odd"><td>libtrans-xx.a</td>
+<td>javaVDM変換</td>
+</tr>
+<tr class="row-even"><td>libvdm.a</td>
+<td>メタデータ</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h2>関連ソフトウエア<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Qt</td>
+<td>GUIライブラリ</td>
+</tr>
+<tr class="row-even"><td>omniORB</td>
+<td>CORBAライブラリ</td>
+</tr>
+<tr class="row-odd"><td>bison/flex</td>
+<td>C/C++上の構文解析、字句解析ツール(Linux,Mac OS X付属)</td>
+</tr>
+<tr class="row-even"><td>nuweb,fweb</td>
+<td>ドキュメントツール</td>
+</tr>
+<tr class="row-odd"><td>javacc</td>
+<td>java上の構文解析ツール</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="VDMToolsDev.html" class="btn btn-neutral float-right" title="VDMToolsの開発方法" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="VDMTools開発ドキュメント" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright fmvdm.org.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

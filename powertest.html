@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Powertest実行方法 &mdash; VDMTools Documents 1.0.0 ドキュメント</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="VDMTools Documents 1.0.0 ドキュメント" href="index.html"/>
+        <link rel="next" title="Powertest テストケース追加方法" href="addPowertestCase.html"/>
+        <link rel="prev" title="VDMToolsの開発方法" href="VDMToolsDev.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> VDMTools Documents
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="aboutVDMTools.html">VDMTools全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VDMToolsDev.html">VDMToolsの開発方法</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Powertest実行方法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">はじめに</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">環境設定</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linuxmac-os-x">Linux、Mac OS X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">3. テスト用ワークディレクトリ作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">4. 設定ファイル作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">5. テスト実行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">6. 結果確認</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="addPowertestCase.html">Powertest テストケース追加方法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">VDMTools Documents</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Powertest実行方法</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/powertest.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="powertest">
+<h1>Powertest実行方法<a class="headerlink" href="#powertest" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id1">
+<h2>はじめに<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">powertest</span></code> はVDMToolsの回帰テストを行うためのツールである。
+python により記述されたプログラムと、テストデータで構成されている。</p>
+<p>基本的なディレクトリは以下のように仮定する。</p>
+<ul class="simple">
+<li>ツールをビルドするディレクトリ： <code class="docutils literal"><span class="pre">$HOME/vdmwork</span></code></li>
+<li>ツールのソースなどsubversionで取得するリポジトリ： <code class="docutils literal"><span class="pre">$HOME/toolbox/trunk</span></code></li>
+<li>リポジトリのディレクトリを <code class="docutils literal"><span class="pre">$TBDIR</span></code> と記述する(TBDIR=$HOME/toolbox/trunk)</li>
+<li>ツールがビルドされた状態でテストを実行する</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>環境設定<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="linuxmac-os-x">
+<h3>Linux、Mac OS X<a class="headerlink" href="#linuxmac-os-x" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>CORBA を利用した API テストを行う場合は、<code class="docutils literal"><span class="pre">omniORBpy</span></code> をインストールする。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$TBDIR</span>/test/powertest において
+$ make
+</pre></div>
+</div>
+<p>を実行する</p>
+<p>APIテストを行わない場合は、 <code class="docutils literal"><span class="pre">$TBDIR/test/powertest/runtest.py</span></code> の</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">apirun</span>
+</pre></div>
+</div>
+<p>の部分をコメントアウトする。</p>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>powertestの実行はCygwin環境下で行うため、CygwinでPythonをインストールしておく。
+APIテストはうまく動作しないので、 <code class="docutils literal"><span class="pre">$TBDIR/test/powertest/runtest.py</span></code> の</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">apirun</span>
+</pre></div>
+</div>
+<p>の部分をコメントアウトする。</p>
+<p>Javaコード生成を行う場合は、C:\Program Files\java 内の jdk ディレクトリを Cygwin の /usr/java 内にコピーし、
+<code class="docutils literal"><span class="pre">default</span></code> という名前のリンクを作成しておく。</p>
+<p>例：</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /usr
+$ mkdir java
+$ cp /cygdrive/c/Program<span class="se">\ </span>Files/Java/jdk_1.*.*_** java/.
+$ ln -s jdk1.7.0_15 default
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>3. テスト用ワークディレクトリ作成<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>テストを行うためのワークディレクトリを任意の場所に作成する。</p>
+</div>
+<div class="section" id="id4">
+<h2>4. 設定ファイル作成<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ワークディレクトリに、設定ファイル <code class="docutils literal"><span class="pre">.powertest-setup</span></code> を作成する。
+通常は、 <code class="docutils literal"><span class="pre">$TBDIR/test/powertest/default-setup</span></code> をコピーして編集する。</p>
+<p><code class="docutils literal"><span class="pre">$TBDIR/code/setup/pt_xxx.tar.bz2</span></code> は OS 毎に各種のテストを設定してあるので
+展開して利用する。</p>
+<p>主な編集項目を以下に示す</p>
+<ul class="simple">
+<li>What-To-Run<ul>
+<li>テストの項目の指定を行う</li>
+<li><code class="docutils literal"><span class="pre">TC、IP、CPP、Java、Api、metaiv、POG</span></code> が指定可能</li>
+</ul>
+</li>
+<li>Language<ul>
+<li>テスト対象の言語の指定を行う</li>
+<li><code class="docutils literal"><span class="pre">SL、PP、RT</span></code> が指定可能</li>
+</ul>
+</li>
+<li>Run-Type<ul>
+<li>実装か仕様の指定を行う</li>
+<li><code class="docutils literal"><span class="pre">impl、spec</span></code> が指定可能</li>
+<li>spec を指定する場合は、What-To-Runは <code class="docutils literal"><span class="pre">TC、IP、CPP、Java、POG</span></code> のいずれか</li>
+</ul>
+</li>
+<li>compiler<ul>
+<li>C++ テストで使用するコンパイラを指定する</li>
+<li><code class="docutils literal"><span class="pre">Windows</span> <span class="pre">では自動的に</span> <span class="pre">cl.exe</span> <span class="pre">が使用されるので指定は不要</span></code></li>
+</ul>
+</li>
+<li>cflag<ul>
+<li>OS によってC++コンパイラのオプションが異なるので、OS にあわせてフラグを選択する</li>
+</ul>
+</li>
+</ul>
+<p>その他テスト項目ごとに指定があるが、前述の仮定ディレクトリ設定下では変更の必要はない。</p>
+<p>PP の ip テストを行う場合、ツールのビルドディレクトリで <code class="docutils literal"><span class="pre">dlclass_test1.so</span></code> を作成し、
+テストディレクトリにコピーする。</p>
+<p>PP の CPP テストを行う場合は、ツールのビルドディレクトリでLinux、Mac OS X では`` dlclass_test1.o`` 、
+Windows では <code class="docutils literal"><span class="pre">dlclass_test1.obj</span></code> を作成し、テストディレクトリにコピーする。</p>
+<p>Windows で CPP テストを行う場合、配布パッケージの <code class="docutils literal"><span class="pre">cg/include</span></code> 内のファイルをテストディレクトリに
+コピーする。</p>
+<p>Windows で java テストを行う場合は、 <code class="docutils literal"><span class="pre">VDM.jar</span></code> をテストディレクトリにコピーする。</p>
+</div>
+<div class="section" id="id5">
+<h2>5. テスト実行<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>テスト用ワークディレクトリ内で以下のシェルスクリプトを実行する</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$TBDIR</span>/test/powertest/powertest
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>6. 結果確認<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>テストが終了すると、テストディレクトリ内には、テストプログラム、結果とともに、
+<code class="docutils literal"><span class="pre">report-日付、errors-日付</span></code> というファイルが作成され、最新のものが report、errorsというリンクファイルが
+作成される。</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="addPowertestCase.html" class="btn btn-neutral float-right" title="Powertest テストケース追加方法" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="VDMToolsDev.html" class="btn btn-neutral" title="VDMToolsの開発方法" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright fmvdm.org.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

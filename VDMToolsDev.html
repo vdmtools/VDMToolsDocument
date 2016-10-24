@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>VDMToolsの開発方法 &mdash; VDMTools Documents 1.0.0 ドキュメント</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="VDMTools Documents 1.0.0 ドキュメント" href="index.html"/>
+        <link rel="next" title="Powertest実行方法" href="powertest.html"/>
+        <link rel="prev" title="VDMTools全体像" href="aboutVDMTools.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> VDMTools Documents
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="aboutVDMTools.html">VDMTools全体像</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VDMToolsの開発方法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">VDMTools 開発環境構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">開発ツール設定</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-xp-7">Windows XP/7</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">開発リポジトリの取得</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">VDMTools 開発用のリポジトリ取得</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">環境変数設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">開発用コマンド、ライブラリのインストール</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linuxmac-os-x">Linux、Mac OS X</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nuweb">nuweb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fweb">fweb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#javacc">javacc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#omniorb">omniORB のインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">VDMTools のインストール</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">5.2 Windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libxml">libxml のインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">omniORB のインストール</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qt">Qt のインストール</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">VDMTools のビルド</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">ワークディレクトリの作成</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linuxmac-os-x-vdmtools">Linux、Mac OS X 上で VDMTools をビルドする場合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#linuxmac-os-x-windows">Linux、Mac OS X を Windows 開発のサーバーとする場合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Windows でツールをビルドする場合</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">コード生成(Linux、Mac OS X)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">仕様の中間ファイルの削除</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">ソースファイルの生成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">開発サーバの場合の追加処理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">ツールのビルド(Linux、Mac OS X)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">ツールのビルド(Windows)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powertest.html">Powertest実行方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addPowertestCase.html">Powertest テストケース追加方法</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">VDMTools Documents</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>VDMToolsの開発方法</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/VDMToolsDev.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vdmtools">
+<h1>VDMToolsの開発方法<a class="headerlink" href="#vdmtools" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents local topic" id="id1">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id2" id="id20">VDMTools 開発環境構築</a></li>
+<li><a class="reference internal" href="#id3" id="id21">開発ツール設定</a></li>
+<li><a class="reference internal" href="#id4" id="id22">開発リポジトリの取得</a></li>
+<li><a class="reference internal" href="#id6" id="id23">環境変数設定</a></li>
+<li><a class="reference internal" href="#id7" id="id24">開発用コマンド、ライブラリのインストール</a></li>
+<li><a class="reference internal" href="#id11" id="id25">VDMTools のビルド</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id20">VDMTools 開発環境構築</a><a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>VDMTools の開発は以下のプラットフォームをサポートしている。</p>
+<ul class="simple">
+<li>Mac OS X 10.5/10.6/10.7/10.8</li>
+<li>Linux Ubuntu (10.4～)、Fedora (15～)、Debian 6</li>
+<li>Windows XP/Windows 7</li>
+</ul>
+<p>以下の環境においても開発可能である。</p>
+<ul class="simple">
+<li>Soralis 10 (x86)</li>
+<li>Freebsd 8/9</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<ul class="last simple">
+<li>現時点で Windows で単独開発は行えず、Linux等のサーバーを必要とする</li>
+<li>VMware などの仮想環境上でサーバーを動かして開発することは可能</li>
+<li>Mac OS X 10.7 以降は samba ではなく smbfs が使用されていて、現時点ではサーバーとして利用できない</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id21">開発ツール設定</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Linux はディストリビューションにより、標準インストールされるソフトウエアが異なる。</p>
+<p>基本的に以下のパッケージを必要とするので、ディストリビューションのパッケージ管理ソフトを
+使用して以下のパッケージの導入確認、インストールを行う。</p>
+<ul class="simple">
+<li>g++</li>
+<li>git</li>
+<li>bison</li>
+<li>flex</li>
+<li>texinfo</li>
+<li>filepp</li>
+<li>openjdk-7-jdk</li>
+<li>ant</li>
+<li>python-dev（バージョン2系）</li>
+<li>libxml2-dev</li>
+<li>libncurses5-dev</li>
+<li>libreadline-dev</li>
+<li>unixODBC-dev</li>
+<li>libqt4-dev</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">Fedora Linux において、 <code class="docutils literal"><span class="pre">openjdk-dev</span></code> パッケージを導入した場合は、idlj コマンドに対して /usr/bin/javac を
+参考にして同じようにリンクを作成しておく。</p>
+</div>
+</div>
+<div class="section" id="mac-os-x">
+<h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mac OS X は、そのOSバージョンに対応する最新の Xcode をインストールする。
+10.7 以降は、Xcode を起動し <code class="docutils literal"><span class="pre">Command</span> <span class="pre">Line</span> <span class="pre">Tools</span></code> のインストールを行う。</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">10.8では10.8SDKの <code class="docutils literal"><span class="pre">usr/include</span></code> に <code class="docutils literal"><span class="pre">FlexLexer.h</span></code> が含まれないので、10.7SDK からコピーして使用する。
+さらに、10.8 の flexの出力は FlexLexer.h と互換性がないので以下の部分を修正する。</p>
+</div>
+<p>修正前：(133行目)</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="kt">int</span> <span class="nf">LexerInput</span><span class="p">(</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max_size</span> <span class="p">);</span>
+<span class="n">virtual</span> <span class="kt">void</span> <span class="nf">LexerOutput</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>修正後：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="kt">size_t</span> <span class="nf">LexerInput</span><span class="p">(</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">max_size</span> <span class="p">);</span>
+<span class="n">virtual</span> <span class="kt">void</span> <span class="nf">LexerOutput</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="windows-xp-7">
+<h3>Windows XP/7<a class="headerlink" href="#windows-xp-7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Windows 環境では以下のバージョンの VisualStudio での開発をサポートしている。</p>
+<ul class="simple">
+<li>VisualStudio 2005 SP1</li>
+<li>VisualStudio 2008 SP1</li>
+<li>VisualStudio 2010 SP1<ul>
+<li>Visual Studio 2010は、 <a class="reference external" href="http://nonsoft.la.coocan.jp/Chinamini/20110001/20110308.html">NonSoft - Visual Studio 2010 Expressのダウンロードとインストール</a> にあるURLから取得可能</li>
+</ul>
+</li>
+</ul>
+<p>VisualStudio から VC++ パッケージをインストールする。</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">VisualStudio 2010 の場合、VC++ パッケージのみを選択すると必要なファイルがインストールされないようなので、
+C# も選択してインストールすること。</p>
+</div>
+<p>以下の環境変数の設定を行う。</p>
+<ul class="simple">
+<li>INCLUDE</li>
+<li>LIB</li>
+<li>PATH</li>
+</ul>
+<p>次に、以下のツールをそれぞれダウンロード→インストールする。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=8442">Microsoft Windows SDK for Windows 7 and .NET Framework 4 (ISO)</a></li>
+<li><a class="reference external" href="https://www.microsoft.com/ja-jp/download/details.aspx?id=23691">Microsoft Visual Studio 2010 Service Pack 1 (インストーラー)</a></li>
+<li><a class="reference external" href="https://www.microsoft.com/ja-jp/download/details.aspx?id=4422">Windows SDK 7.1 用 Microsoft Visual C++ 2010 Service Pack 1 コンパイラ更新プログラム</a></li>
+</ul>
+<p>Windows での開発作業は Cygwin のシェル上で行うので、<code class="docutils literal"><span class="pre">Cygwin</span></code> もインストールしておく。
+以下のパッケージを選択する。</p>
+<ul class="simple">
+<li>binutils</li>
+<li>make</li>
+<li>perl</li>
+<li>python</li>
+<li>subversion</li>
+</ul>
+<p>Cygwin の <code class="docutils literal"><span class="pre">/usr/bin/link.exe</span></code> コマンドが VisualStudio の link.exe の代わりに起動されることがあるので、
+名前を変更しておく。</p>
+<p>さらに以下のパッケージをインストールする</p>
+<ul class="simple">
+<li>Python 2.7.3</li>
+<li>ActivePerl 5.14/5.16</li>
+<li>最新版のJDK</li>
+<li>NSIS 3.0</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id22">開発リポジトリの取得</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Linux、Mac OS X、Cygwin のシェル環境において開発リポジトリの取得を行う。
+以下、開発ディレクトリを <strong>$HOME/vdmtools</strong> とする。</p>
+<div class="section" id="id5">
+<h3>VDMTools 開発用のリポジトリ取得<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Subversion コマンドを使用してVDMTools 開発用のリポジトリを取得する。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="nv">$HOME</span>
+$ git clone https://mas0061@bitbucket.org/mas0061/vdmtools.git
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id23">環境変数設定</a><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>開発に必要な環境変数の設定を行う。</p>
+<p><code class="docutils literal"><span class="pre">&lt;開発用リポジトリ&gt;/code/setup</span></code> に各プラットフォームに対応したシェル環境設定ファイルの
+サンプルがあるので、それを修正して使用する。</p>
+<p>.bashrc や .profile を修正した後、シェルを再起動する。</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id24">開発用コマンド、ライブラリのインストール</a><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="linuxmac-os-x">
+<h3>Linux、Mac OS X<a class="headerlink" href="#linuxmac-os-x" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>インストール中にエラーとなる場合は、パッケージや、環境変数を見直す。</p>
+<div class="section" id="nuweb">
+<h4>nuweb<a class="headerlink" href="#nuweb" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">&lt;開発用リポジトリ&gt;/code/tools/nuweb-1.58.tar.gz</span></code></p>
+<p>インストール方法：</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tar xvf nuweb-1.58.tar.gz
+$ <span class="nb">cd</span> nuweb-1.58
+$ make nuweb
+$ make
+$ sudo install -s nuweb /usr/local/bin
+</pre></div>
+</div>
+</div>
+<div class="section" id="fweb">
+<h4>fweb<a class="headerlink" href="#fweb" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">&lt;開発用リポジトリ&gt;/code/tools/fweb-1.62.tar.bz2</span></code></p>
+<p>インストール方法：</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tar xvf fweb-1.62.tar.bz2
+$ <span class="nb">cd</span> fweb-1.62/Web
+$ ./configure
+$ make
+$ sudo make install
+</pre></div>
+</div>
+</div>
+<div class="section" id="javacc">
+<h4>javacc<a class="headerlink" href="#javacc" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">&lt;開発用リポジトリ&gt;/code/tools/javacc-5.0src.tar.gz</span></code></p>
+<p>インストール方法 ： ※ここでは <code class="docutils literal"><span class="pre">/usr/local/javacc-5.0</span></code> にインストールするものとする。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tar zxf javacc-5.0src.tar.gz
+$ <span class="nb">cd</span> javacc
+$ ant
+$ makedist 5.0
+$ sudo tar xvf javacc-5.0.tar.gz -C /usr/local
+</pre></div>
+</div>
+<p>/usr/local 以外の場所にインストールする場合は、 <code class="docutils literal"><span class="pre">JAVACCHOME</span></code> 環境変数を修正する。</p>
+</div>
+<div class="section" id="omniorb">
+<h4>omniORB のインストール<a class="headerlink" href="#omniorb" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">omniORB-4.2.1-2.tar.bz2</span></code> および <code class="docutils literal"><span class="pre">omniORBpy-4.2.1-2.tar.bz2</span></code> をインストール。
+上記2ファイルは、インターネットから取得。</p>
+<p>ここでは <code class="docutils literal"><span class="pre">/usr/local/omniORB</span></code> にインストールするものとする。</p>
+<p>インストール方法：</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tar xvf omniORB-4.2.1-2.tar.bz2
+$ <span class="nb">cd</span> omniORB-4.2.1
+$ ./configure --prefix<span class="o">=</span>/usr/local/omniORB
+$ make
+$ sudo make install
+
+$ tar xvf omniORBpy-4.2.1-2.tar.bz2
+$ <span class="nb">cd</span> omniORBpy-4.2.1
+$ ./configure --prefix<span class="o">=</span>/usr/local/omniORB
+$ make
+$ sudo make install
+</pre></div>
+</div>
+<p>omniORBpyのコンパイルに失敗した場合は、アーカイブの展開から行う。</p>
+<p>/usr/local 以外の場所にインストールする場合は、 <code class="docutils literal"><span class="pre">CORBAHOME</span></code> 環境変数を修正する。</p>
+</div>
+<div class="section" id="id8">
+<h4>VDMTools のインストール<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>VDM++ と VDM-SL パッケージをインストールする。</p>
+<p>&lt;開発用リポジトリ&gt;/code/tools の vdmsl と vdmpp を /usr/local に展開。</p>
+<p>環境変数 <code class="docutils literal"><span class="pre">CG_SL_CMD</span></code> に <code class="docutils literal"><span class="pre">vdmde</span></code> のフルパス、
+環境変数 <code class="docutils literal"><span class="pre">CG_PP_CMD</span></code> に <code class="docutils literal"><span class="pre">vppde</span></code> のフルパスを設定する。</p>
+<p>設定しない場合は、
+<code class="docutils literal"><span class="pre">CG_SL_CMD=/usr/local/bin/vdmsl、CG_PP_CMD=/usr/local/bin/vdmpp</span></code>
+がデフォルト値となる。</p>
+</div>
+</div>
+<div class="section" id="windows">
+<h3>5.2 Windows<a class="headerlink" href="#windows" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="libxml">
+<h4>libxml のインストール<a class="headerlink" href="#libxml" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">&lt;開発用リポジトリ&gt;/code/win32/libxml2/libxml2-2.7.x.zip</span></code> を展開し <code class="docutils literal"><span class="pre">C:\libxml2</span></code> に配置する。</p>
+<p>さらに <code class="docutils literal"><span class="pre">iconv-xxx.zip</span></code> と <code class="docutils literal"><span class="pre">zlib-xxx.zip</span></code> も展開し、それぞれ対応するディレクトリに内容をコピーする。</p>
+<p>64ビット版Windows の場合は <code class="docutils literal"><span class="pre">&lt;開発用リポジトリ&gt;/code/win32/libxml2_x64</span></code> のファイルを配置する。</p>
+</div>
+<div class="section" id="id9">
+<h4>omniORB のインストール<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<ol class="arabic">
+<li><p class="first"><code class="docutils literal"><span class="pre">omniORB-4.2.1-2.tar.bz2</span></code> を展開し、 <code class="docutils literal"><span class="pre">C:\omniORB-4.2.1-2</span></code> に配置する</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">C:\omniORB-4.2.1-2\mk\platforms</span></code> 内の <code class="docutils literal"><span class="pre">x86_win32_vs?.mk</span></code> の中で、開発に使用する VisualSutudio のバージョンに
+対応するファイルを修正する</p>
+<ul class="simple">
+<li>VisualStudio 2005 -&gt; <code class="docutils literal"><span class="pre">x86_win32_vs8.mk</span></code></li>
+<li>VisualStudio 2008 -&gt; <code class="docutils literal"><span class="pre">x86_win32_vs9.mk</span></code></li>
+<li>VisualStudio 2010 -&gt; <code class="docutils literal"><span class="pre">x86_win32_vs10.mk</span></code></li>
+</ul>
+<p>修正個所は PYTHON の設定のみ。
+先に <code class="docutils literal"><span class="pre">C:\Python27</span></code> にインストールしていれば、</p>
+<p>となる。</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">C:\omniORB-4.2.1-2\config\config.mk</span></code> を修正する</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">platform</span> <span class="pre">=</span></code> で開発に使用する VisualSutudio のバージョンに対応する設定のコメントを外す(先頭の#を消す)</li>
+</ul>
+</li>
+<li><p class="first">Cygwin のターミナルで <code class="docutils literal"><span class="pre">/cygdrive/c/omniORB-4.2.1-2/src</span></code> へ移動する</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">make</span> <span class="pre">export</span></code> を実行する</p>
+</li>
+</ol>
+</div>
+<div class="section" id="qt">
+<h4>Qt のインストール<a class="headerlink" href="#qt" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://download.qt.io/official_releases/qt/4.8/4.8.7/">Qtのダウンロードサイト</a> から、 <code class="docutils literal"><span class="pre">qt-everywhere-opensource-src-4.8.7.zip</span></code> をダウンロード</li>
+<li><code class="docutils literal"><span class="pre">qt-everywhere-opensource-src-4.8.7.zip</span></code> を展開し <code class="docutils literal"><span class="pre">C:\Qt\4.8.4</span></code> に配置する</li>
+<li>コマンドプロンプト(Cygwinは不可)で、C:Qt4.8.4 に移動する。</li>
+<li><code class="docutils literal"><span class="pre">configure</span> <span class="pre">-no-webkit</span></code> を実行する<ul>
+<li>VisualStudio 2005 の場合は <code class="docutils literal"><span class="pre">-qt-zlib</span></code> オプションを追加する</li>
+</ul>
+</li>
+<li>nmake を実行する<ul>
+<li>64 ビット版の場合、ビルド後に Cygwin で <code class="docutils literal"><span class="pre">/cygdrive/c/Qt/4.8.4/bin/</span></code> および <code class="docutils literal"><span class="pre">/cygdrive/c/Qt/4.8.4/plugins/codecs/</span></code>
+内の *.dll ファイルのパーミッションを確認し、なければ追加しておく</li>
+<li>パーミッションがないとパッケージ作成の際にエラーとなる</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id25">VDMTools のビルド</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id12">
+<h3>ワークディレクトリの作成<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ツールをビルドするためのワークディレクトリを作成する。</p>
+<p>Linux、Mac OS X 上でツールをビルドする場合と、 Windows のサーバーで、構成が異なるので、ディレクトリは
+別にしておく。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir vdmwork
+</pre></div>
+</div>
+<div class="section" id="linuxmac-os-x-vdmtools">
+<h4>Linux、Mac OS X 上で VDMTools をビルドする場合<a class="headerlink" href="#linuxmac-os-x-vdmtools" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>以下のコマンドを実行する。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ &lt;開発用リポジトリのパス&gt;/code/make_tools/lnconf -i <span class="nv">BASEDIR</span><span class="o">=</span>&lt;開発用リポジトリのパス&gt;/code
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ../toolbox/trunk/code/make_tools/lnconf -i &lt;開発用リポジトリのパス&gt;/code
+</pre></div>
+</div>
+<p>BASEDIR はフルパスで指定しておく。</p>
+</div>
+<div class="section" id="linuxmac-os-x-windows">
+<h4>Linux、Mac OS X を Windows 開発のサーバーとする場合<a class="headerlink" href="#linuxmac-os-x-windows" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>以下のコマンドを実行する</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ &lt;開発用リポジトリのパス&gt;/code/make_tool/lnconf -i <span class="nv">BASEDIR</span><span class="o">=</span>&lt;開発用リポジトリのパス&gt;/code <span class="nv">OSTYPE</span><span class="o">=</span>win32
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h4>Windows でツールをビルドする場合<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>サーバーの準備ができてから以下のコマンドを実行する。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ &lt;サーバーのワークディレクトリのパス&gt;/lnconf -i -w <span class="nv">VPATH</span><span class="o">=</span>&lt;サーバーのワークディレクトリのパス&gt;
+</pre></div>
+</div>
+<p>この操作により GNUmakefile と inienv が作成される。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ //ip_address_of_server/vdmwork_vs/lnconf -i -w <span class="nv">VPATH</span><span class="o">=</span>//ip_address_of_server/vdmwork_vs
+</pre></div>
+</div>
+<p>Windows 7 では、エクスプローラからサーバーに接続しておかないとうまく動かない。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>コード生成(Linux、Mac OS X)<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>vdm の仕様からツールをビルドするのに必要なソースファイルの生成を行う。</p>
+<div class="section" id="id15">
+<h4>仕様の中間ファイルの削除<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ make specclean
+</pre></div>
+</div>
+<p>この操作は、仕様の中間ファイルの削除を行う
+仕様を修正した場合に実行する</p>
+</div>
+<div class="section" id="id16">
+<h4>ソースファイルの生成<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ make gencode &gt;<span class="p">&amp;</span> Logs <span class="p">&amp;</span> tail -f Logs
+</pre></div>
+</div>
+<p>コード生成終了後エラーがないことを確認する。
+Errors クラスと ErrorState クラスに関する出力はエラーではない。</p>
+</div>
+<div class="section" id="id17">
+<h4>開発サーバの場合の追加処理<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ make clean
+$ make ntinit
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h3>ツールのビルド(Linux、Mac OS X)<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ワークディレクトリ内で以下のコマンドを実行する</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ make clean
+$ make distall
+</pre></div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3>ツールのビルド(Windows)<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ワークディレクトリ内で以下のコマンドを実行する</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> inienv
+$ make clean
+$ make setupall
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="powertest.html" class="btn btn-neutral float-right" title="Powertest実行方法" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aboutVDMTools.html" class="btn btn-neutral" title="VDMTools全体像" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright fmvdm.org.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
